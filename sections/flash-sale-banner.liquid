@@ -1,0 +1,569 @@
+{% style %}
+    .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      }
+
+    @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+
+    .section-{{ section.id }} .image-container {
+    position: relative;
+    width: 100%;
+    height: {% if section.settings.image_height == 'small' %}34rem{% else %}44rem{% endif %};
+    overflow: hidden;
+    }
+
+  .section-{{ section.id }} .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+  }
+
+  .section-{{ section.id }} .content-container-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .content-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+    .section-{{ section.id }} .flash-sale--heading * {
+      margin-block-end: 0 ;
+      margin-block-start: 0 ;
+      text-align: {{ section.settings.text_alignment }};
+    }
+
+    .section-{{ section.id }} .flash-sale--heading :first-child {
+      margin-bottom: {{section.settings.block_gap}}px
+    }
+
+
+    .section-{{ section.id }} .flash-sale {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: {% if section.settings.text_alignment == 'left' %}flex-start{% elsif section.settings.text_alignment == 'center'%}center{% else %}flex-end{% endif %};
+        gap: {{section.settings.block_gap}}px;
+    }
+
+    .section-{{ section.id }} .countdown-timer {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+    }
+    .section-{{ section.id }} .countdown-timer div {
+        text-align: center;
+    }
+    .section-{{ section.id }} .countdown-timer--time {
+        font-weight: bold;
+        color: rgb(var(--color-button));
+    }
+
+    .section-{{ section.id }} .flash-sales__buttons {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 45rem;
+      word-break: break-word;
+    }
+
+    @media only screen and (max-width: 749px) {
+      .section-{{ section.id }} .content-container {
+        align-items: center !important ;
+        justify-content: center !important
+      }
+      .section-{{ section.id }} .flash-sale {
+        gap: 16px;  /* Adjust spacing for smaller screens */
+        align-items: center !important ;
+      }
+      .section-{{ section.id }} .flash-sale--heading * {
+        text-align: center;
+      }
+    }
+
+    @media only screen and (min-width: 750px) {
+      .section-{{ section.id }} .content-container.content-position--top-left{
+        justify-content: flex-start;
+        align-items: flex-start ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--top-center{
+        justify-content: flex-start;
+        align-items: center ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--top-right{
+        justify-content: flex-start;
+        align-items: flex-end ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--middle-left{
+        justify-content: center;
+        align-items: flex-start ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--middle-center{
+        justify-content: center;
+        align-items:center ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--middle-right{
+        justify-content: center;
+        align-items:flex-end ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--bottom-left{
+        justify-content: flex-end;
+        align-items:flex-start ;
+      }
+
+      .section-{{ section.id }} .content-container.content-position--bottom-center{
+        justify-content: flex-end;
+        align-items:center ;
+      }
+      .section-{{ section.id }} .content-container.content-position--bottom-right{
+        justify-content: flex-end;
+        align-items:flex-end ;
+      }
+
+    }
+{% endstyle %}
+
+<div
+  class=" isolate{% unless section.settings.full_width %} page-width{% endunless %} color-{{ section.settings.color_scheme }} section-{{ section.id }} {% if section.settings.full_width %}  content-container--full-width{% endif %} "
+>
+  <div
+    class="image-container"
+  >
+    {%- if section.settings.image != blank -%}
+      <img
+        class=""
+        src="{{ section.settings.image | image_url}}"
+        width="full"
+        height="100"
+        alt="img"
+      >
+    {% endif %}
+  </div>
+
+  <div
+    class="content-container-wrapper section-{{ section.id }}-padding page-width "
+  >
+    <div class="content-container content-position--{{ section.settings.content_position }}">
+      <div class="flash-sale  ">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              <div class="flash-sale--heading">
+                <h2 class="{{ block.settings.heading_size }}">{{ block.settings.heading }}</h2>
+                <div>{{ block.settings.subheading }}</div>
+              </div>
+
+            {%- when 'end_date' -%}
+              <div class="countdown-timer" id="countdown-timer-{{ section.id }}">
+                <div>
+                  <span
+                    id="days"
+                    class="countdown-timer--time"
+                    style="font-size: {{ block.settings.end_date_fontsize }}px"
+                    >00</span
+                  >
+                  <span> Days</span>
+                </div>
+                <div>:</div>
+                <div>
+                  <span
+                    id="hours"
+                    class="countdown-timer--time"
+                    style="font-size: {{ block.settings.end_date_fontsize }}px; "
+                    >00</span
+                  >
+                  <span> Hours</span>
+                </div>
+                <div>:</div>
+                <div>
+                  <span
+                    id="minutes"
+                    class="countdown-timer--time"
+                    style="font-size: {{ block.settings.end_date_fontsize }}px; "
+                    >00</span
+                  >
+                  <span> Minutes</span>
+                </div>
+                <div>:</div>
+                <div>
+                  <span
+                    id="seconds"
+                    class="countdown-timer--time"
+                    style="font-size: {{ block.settings.end_date_fontsize }}px; "
+                    >00</span
+                  >
+                  <span> Seconds</span>
+                </div>
+              </div>
+
+            {%- when 'buttons' -%}
+              <div
+                class="flash-sales__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.button_label_1 != blank -%}
+                  <a
+                    {% if block.settings.button_link_1 == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.button_link_1 }}"
+                    {% endif %}
+                    class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                  >
+                    {{- block.settings.button_label_1 | escape -}}
+                  </a>
+                {%- endif -%}
+                {%- if block.settings.button_label_2 != blank -%}
+                  <a
+                    {% if block.settings.button_link_2 == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.button_link_2 }}"
+                    {% endif %}
+                    class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                  >
+                    {{- block.settings.button_label_2 | escape -}}
+                  </a>
+                {%- endif -%}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const timerElement = document.getElementById('countdown-timer-{{ section.id }}');
+
+     // Retrieve the end date value
+     const endDateStr =
+      {% for block in section.blocks %}
+        {% if block.type == "end_date" %}
+          "{{ block.settings.end_date }}"
+        {% endif %}
+      {% endfor %};
+    const endDate = new Date(endDateStr.trim()).getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+
+      if (distance < 0) {
+        timerElement.innerHTML = 'Sale Ended';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timerElement.querySelector('#days').textContent = String(days).padStart(2, '0');
+      timerElement.querySelector('#hours').textContent = String(hours).padStart(2, '0');
+      timerElement.querySelector('#minutes').textContent = String(minutes).padStart(2, '0');
+      timerElement.querySelector('#seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Flash Sales Banner",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "end_date",
+      "name": "end_date",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "end_date",
+          "default": "2025-12-31T23:59:59",
+          "label": "End Date and Time",
+          "info": "Enter date with format YYYY-MM-DD HH:mm:ss. Ex '2024-12-31T30:59:59'"
+        },
+        {
+          "type": "range",
+          "id": "end_date_fontsize",
+          "default": 24,
+          "label": "End date font size",
+          "min": 14,
+          "max": 56,
+          "step": 1,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Sale-off Season",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            },
+            {
+              "value": "hxl",
+              "label": "t:sections.all.heading_size.options__4.label"
+            },
+            {
+              "value": "hxxl",
+              "label": "t:sections.all.heading_size.options__5.label"
+            }
+          ],
+          "default": "h1",
+          "label": "Heading size"
+        },
+
+        {
+          "type": "inline_richtext",
+          "id": "subheading",
+          "label": "Sub heading",
+          "default": "Discover unbeatable deals and discounts during our exciting sale-off seasons!"
+        }
+      ]
+    },
+
+    {
+      "type": "buttons",
+      "name": "buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Explore Now",
+          "label": "First button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": "First button link",
+          "default": "/collections/all"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary_1",
+          "default": false,
+          "label": "Use outline button style"
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "label": "Second button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Second button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary_2",
+          "default": false,
+          "label": "Use outline button style"
+        }
+      ]
+    }
+  ],
+
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Image height",
+      "default": "small",
+      "options": [
+        {
+          "value": "small",
+          "label": "small"
+        },
+        {
+          "value": "large",
+          "label": "large"
+        }
+      ]
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full width"
+    },
+
+    {
+      "type": "select",
+      "id": "content_position",
+      "default": "middle-center",
+      "label": "Desktop Content Position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle Left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle Center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ]
+    },
+
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "default": "center",
+      "label": "Desktop content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+
+    {
+      "type": "range",
+      "id": "block_gap",
+      "default": 24,
+      "label": "Block gap",
+      "min": 8,
+      "max": 56,
+      "step": 4,
+      "unit": "px"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flash Sales Banner",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "end_date"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

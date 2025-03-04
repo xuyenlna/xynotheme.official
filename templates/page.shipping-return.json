@@ -1,0 +1,110 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_i4h3Wq": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_FBqtXU": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_FBqtXU"
+      ],
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_jtW9ep": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_T7fDAe": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping Policy",
+            "heading_size": "h2"
+          }
+        },
+        "text_nP7QF3": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Processing Time</strong><br/>Orders are processed within 1-3 business days after payment is confirmed. Please note that processing times may vary during peak seasons or promotional periods.</p><p><strong>Shipping Times</strong></p><ul><li><strong>Standard Shipping:</strong> Estimated delivery within 7-15 business days.</li><li><strong>Express Shipping:</strong> Estimated delivery within 3-7 business days.<br/>Shipping times may vary depending on your location and external factors such as customs delays or carrier issues.</li></ul><p><strong>Shipping Costs</strong><br/>Shipping fees are calculated at checkout and depend on the selected shipping method and destination. Free shipping may be available for qualifying orders as per our promotions.</p><p><strong>Order Tracking</strong><br/>Once your order has been shipped, you will receive a confirmation email with a tracking number to monitor your package.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_T7fDAe",
+        "text_nP7QF3"
+      ],
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_RBtRDP": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_TyAaJV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Return Policy",
+            "heading_size": "h2"
+          }
+        },
+        "text_bgiAEV": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Eligibility for Returns</strong><br/>We accept returns on items in their original condition, unused, and with all tags attached. Returns must be initiated within 30 days of receiving your order.</p><p><strong>Non-Returnable Items</strong></p><ul><li>Customized or personalized items</li><li>Digital products or downloads</li><li>Sale or clearance items</li></ul><p><strong>How to Initiate a Return</strong></p><ol><li>Contact our customer service team via email or the contact form on our website with your order details.</li><li>Await our confirmation and return instructions.</li><li>Ship the item(s) back to the address provided. Return shipping costs are the responsibility of the customer unless the return is due to our error.</li></ol><p><strong>Refunds</strong><br/>Refunds will be issued to the original payment method once the returned items are inspected and approved. Please allow up to 7 business days for the refund to appear in your account.</p><p><strong>Exchanges</strong><br/>If you'd like to exchange an item, follow the return process and place a new order for the desired product.</p><p><strong>Damaged or Incorrect Items</strong><br/>If your order arrives damaged or incorrect, please contact us within 7 days of delivery. We will resolve the issue promptly with a replacement or refund.</p><p>For any questions or further assistance, feel free to reach out to our customer service team.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_TyAaJV",
+        "text_bgiAEV"
+      ],
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_i4h3Wq",
+    "rich_text_jtW9ep",
+    "rich_text_RBtRDP"
+  ]
+}

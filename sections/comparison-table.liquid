@@ -1,0 +1,406 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .comparison-table table {
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    text-align: {{section.settings.table_content_alignment}};
+    border: 1px solid #ddd;
+    padding: 0 14px !important
+  }
+
+  .comparison-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  .comparison-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+
+  }
+{%- endstyle -%}
+
+{% assign content_row_alignment = 'center' %}
+{% if section.settings.table_content_alignment == 'left' %}
+  {% assign content_row_alignment = 'start' %}
+{% elsif section.settings.table_content_alignment == 'right' %}
+  {% assign content_row_alignment = 'end' %}
+{% else %}
+  {% assign content_row_alignment = 'center' %}
+{% endif %}
+
+<div class="comparison-table page-width  color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+  {%- unless section.settings.title == blank and section.settings.description == blank -%}
+    <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin table__title title-wrapper--{{ section.settings.heading_alignment }}">
+      <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+        {{ section.settings.title }}
+      </h2>
+
+      <div
+        class="rich-text__text"
+      >
+        {{ section.settings.description }}
+      </div>
+    </div>
+  {%- endunless -%}
+
+  <table>
+    <thead>
+      <tr class="color-{{ section.settings.table_header_color_scheme }}">
+        <th>
+          <p>{{ section.settings.feature_title }}</p>
+        </th>
+        <th>
+          <p>{{ section.settings.product_1_title }}</p>
+        </th>
+        <th>
+          <p>{{ section.settings.product_2_title }}</p>
+        </th>
+        {% if section.settings.number_of_product_column == '3' %}
+          <th>
+            <p>{{ section.settings.product_3_title }}</p>
+          </th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for block in section.blocks %}
+        {% if block.type == 'table_row' %}
+          <tr>
+            <td>
+              <p>{{ block.settings.feature_name }}</p>
+            </td>
+            <td>
+              <div style="display: flex; align-items: center; justify-content: {{content_row_alignment}}; gap: 8px; margin: 0">
+                {% render 'icon-accordion', icon: block.settings.product_1_icon %}
+                <p>{{ block.settings.product_1_feature }}</p>
+              </div>
+            </td>
+            <td>
+              <div style="display: flex; align-items: center; justify-content: {{content_row_alignment}}; gap: 8px">
+                {% render 'icon-accordion', icon: block.settings.product_2_icon %}
+                <p>{{ block.settings.product_2_feature }}</p>
+              </div>
+            </td>
+
+            {% if section.settings.number_of_product_column == '3' %}
+              <td>
+                <div style="display: flex; align-items: center; justify-content: {{content_row_alignment}}; gap: 8px">
+                  {% render 'icon-accordion', icon: block.settings.product_3_icon %}
+                  <p>{{ block.settings.product_3_feature }}</p>
+                </div>
+              </td>
+            {% endif %}
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% schema %}
+{
+  "name": "comparision table",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Table heading",
+      "label": "Table heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+
+    {
+      "type": "richtext",
+      "id": "description",
+      "default": "<p>Lorem ipsum odor amet, consectetuer adipiscing elit</p>",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Heading alignment"
+    },
+
+    {
+      "type": "select",
+      "id": "number_of_product_column",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2",
+      "label": "Numbers of product column"
+    },
+
+    {
+      "type": "select",
+      "id": "table_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Table content alignment"
+    },
+
+    {
+      "type": "richtext",
+      "id": "feature_title",
+      "label": "Features title",
+      "default": "<p>FEATURES</p>"
+    },
+
+    {
+      "type": "richtext",
+      "id": "product_1_title",
+      "label": "First Product Title",
+      "default": "<p>PRODUCT 1</p>"
+    },
+
+    {
+      "type": "richtext",
+      "id": "product_2_title",
+      "label": "Second Product Title",
+      "default": "<p>PRODUCT 2</p>"
+    },
+
+    {
+      "type": "richtext",
+      "id": "product_3_title",
+      "label": "Third Product Title",
+      "default": "<p>PRODUCT 3</p>"
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.comparison_table.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "table_header_color_scheme",
+      "label": "Table Header Color Scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "table_row",
+      "name": "Table row",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "feature_name",
+          "label": "Feature name",
+          "default": "<p>Feature Name</p>"
+        },
+
+        {
+          "type": "select",
+          "id": "product_1_icon",
+          "default": "crossmark-color",
+          "label": "First Product's Icon",
+          "options": [
+            {
+              "value": "checkmark-color",
+              "label": "Check"
+            },
+            {
+              "value": "crossmark-color",
+              "label": "Cross"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        },
+
+        {
+          "type": "richtext",
+          "id": "product_1_feature",
+          "label": "First Product's Info",
+          "default": "<p>NO</p>"
+        },
+
+        {
+          "type": "select",
+          "id": "product_2_icon",
+          "default": "checkmark-color",
+          "label": "Second Product's Icon",
+          "options": [
+            {
+              "value": "checkmark-color",
+              "label": "Check"
+            },
+            {
+              "value": "crossmark-color",
+              "label": "Cross"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        },
+
+        {
+          "type": "richtext",
+          "id": "product_2_feature",
+          "label": "Second Product's Info",
+          "default": "<p>YES</p>"
+        },
+
+        {
+          "type": "select",
+          "id": "product_3_icon",
+          "default": "none",
+          "label": "Third Product's Icon",
+          "options": [
+            {
+              "value": "checkmark-color",
+              "label": "Check"
+            },
+            {
+              "value": "crossmark-color",
+              "label": "Cross"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "product_3_feature",
+          "label": "Third Product's Info",
+          "default": "<p></p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Table comparision",
+      "blocks": [
+        {
+          "type": "table_row"
+        },
+        {
+          "type": "table_row"
+        },
+        {
+          "type": "table_row"
+        },
+        {
+          "type": "table_row"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

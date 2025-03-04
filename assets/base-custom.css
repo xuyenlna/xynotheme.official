@@ -1,0 +1,311 @@
+/* Change Judge.me star color */
+.jdgm-star.jdgm--on {
+  color: #ffe234; /* Gold color for filled stars */
+}
+
+/* Change star color of default product */
+.rating-star {
+  --color-rating-star: #ffe234;
+}
+
+/* menu header */
+.header__menu-item {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: large;
+}
+
+.header__menu-item:hover {
+  /* color: rgb(var(--color-foreground)); */
+  color: rgb(var(--color-button));
+}
+
+.header__menu-item:hover span {
+  text-decoration: none;
+}
+
+details[open] > .header__menu-item {
+  text-decoration: none;
+}
+
+.header__active-menu-item {
+  text-decoration: none;
+  color: rgb(var(--color-button));
+  font-weight: 600;
+}
+
+/* slider */
+slider-component {
+  --desktop-margin-left-first-item: 0 !important;
+}
+
+/* grids --> no spacing gap */
+@media screen and (min-width: 990px) {
+  .grid--6-col-desktop.grid--gapless .grid__item {
+    width: calc(16.66%) !important;
+    max-width: calc(16.66%) !important;
+  }
+
+  .grid--5-col-desktop.grid--gapless .grid__item {
+    width: calc(20%) !important;
+    max-width: calc(20%) !important;
+  }
+
+  .grid--4-col-desktop.grid--gapless .grid__item {
+    width: calc(25%) !important;
+    max-width: calc(25%) !important;
+  }
+
+  .grid--3-col-desktop.grid--gapless .grid__item {
+    width: calc(33.33%) !important;
+    max-width: calc(33.33%) !important;
+  }
+
+  .grid--2-col-desktop.grid--gapless .grid__item {
+    width: calc(50%) !important;
+    max-width: calc(50%) !important;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .grid--2-col-tablet-down.grid--gapless .grid__item {
+    width: calc(50%) !important;
+    max-width: calc(50%) !important;
+  }
+}
+
+/* grid has spacing */
+@media screen and (min-width: 990px) {
+  .grid--6-col-desktop .grid__item {
+    width: calc(
+      16.66% - var(--grid-desktop-horizontal-spacing) * 5 / 6
+    ) !important;
+    max-width: calc(
+      16.66% - var(--grid-desktop-horizontal-spacing) * 5 / 6
+    ) !important;
+  }
+
+  .grid--5-col-desktop .grid__item {
+    width: calc(
+      20% - var(--grid-desktop-horizontal-spacing) * 4 / 5
+    ) !important;
+    max-width: calc(
+      20% - var(--grid-desktop-horizontal-spacing) * 4 / 5
+    ) !important;
+  }
+
+  .grid--4-col-desktop .grid__item {
+    width: calc(
+      25% - var(--grid-desktop-horizontal-spacing) * 3 / 4
+    ) !important;
+    max-width: calc(
+      25% - var(--grid-desktop-horizontal-spacing) * 3 / 4
+    ) !important;
+  }
+
+  .grid--3-col-desktop .grid__item {
+    width: calc(
+      33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3
+    ) !important;
+    max-width: calc(
+      33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3
+    ) !important;
+  }
+
+  .grid--2-col-desktop .grid__item {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+    max-width: calc(
+      50% - var(--grid-desktop-horizontal-spacing) / 2
+    ) !important;
+  }
+}
+
+/* change color of dot on slider */
+.slider-counter__link--dots .dot {
+  border: 0.1rem solid rgba(var(--color-button), 0.5) !important;
+}
+
+.slider-counter__link--active.slider-counter__link--dots .dot {
+  background-color: rgb(var(--color-button)) !important;
+}
+
+@media screen and (forced-colors: active) {
+  .slider-counter__link--active.slider-counter__link--dots .dot {
+    background-color: CanvasText !important;
+  }
+}
+
+.slider-counter__link--dots:not(.slider-counter__link--active):hover .dot {
+  border-color: rgb(var(--color-button)) !important;
+}
+/* slider counter */
+.slider-counter {
+  color: rgba(var(--color-button));
+}
+.slider-counter__link--numbers {
+  color: rgba(var(--color-button)) !important;
+}
+/* slider button color with no background add class 'slider-button__no-background' */
+.slider-button__no-background.slider-button {
+  color: rgba(var(--color-button), 1) !important;
+}
+
+.slider-button__no-background.slider-button:not([disabled]):hover {
+  color: rgb(var(--color-button)) !important;
+}
+
+.slider-button__no-background.slider-button[disabled] .icon {
+  color: rgba(var(--color-button), 0.3) !important;
+}
+
+/* slider button color with  background add class 'slider-button__has-background'  */
+.slider-button__has-background.slider-button {
+  background-color: rgba(var(--color-button), 1) !important;
+  color: rgb(var(--color-button-text)) !important;
+  transition: all 0.4s ease;
+}
+
+.slider-button__has-background.slider-button:not([disabled]):hover {
+  background-color: rgba(var(--color-button), 1) !important;
+  filter: brightness(0.8);
+  color: rgb(var(--color-button-text)) !important;
+}
+
+.slider-button__has-background.slider-button[disabled] {
+  background-color: rgba(var(--color-button), 0.3) !important;
+}
+
+/* slider buttons type
+      - type1: slider button at below of the card
+      - type2: slider button on the card
+    */
+
+.slider-button.slider-button--type2 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  vertical-align: middle;
+  z-index: 999;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+.product-list .slider-button.slider-button--type2,
+.featured-collection .slider-button.slider-button--type2 {
+  top: 33%;
+}
+.collection-list-v2 .slider-button.slider-button--type2 {
+  top: 42%;
+}
+
+.slider-button.slider-button--prev.slider-button--type2 {
+  left: 20px;
+}
+.slider-button.slider-button--next.slider-button--type2 {
+  right: 20px;
+}
+
+.slider--desktop .slider__slide:first-child {
+  margin-left: 0;
+}
+
+/* fix title alignment in each section */
+.title-wrapper-with-link .rich-text__text *,
+.title-wrapper .rich-text__text * {
+  margin-block-end: 0 !important;
+  margin-block-start: 0 !important;
+}
+
+.title-wrapper-with-link,
+.title-wrapper {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.title-wrapper-with-link.title-wrapper--left,
+.title-wrapper.title-wrapper--left {
+  align-items: flex-start !important;
+}
+
+.title-wrapper-with-link.title-wrapper--center,
+.title-wrapper.title-wrapper--center {
+  align-items: center !important;
+}
+
+.title-wrapper-with-link.title-wrapper--right,
+.title-wrapper.title-wrapper--right {
+  align-items: flex-end !important;
+}
+.title-wrapper--left .rich-text__text {
+  text-align: left;
+}
+.title-wrapper--center .rich-text__text {
+  text-align: center;
+}
+.title-wrapper--right .rich-text__text {
+  text-align: right;
+}
+
+.title-wrapper--left .title {
+  text-align: left;
+}
+.title-wrapper--center .title {
+  text-align: center;
+}
+.title-wrapper--right .title {
+  text-align: right;
+}
+
+/* delete margin for title */
+.title-wrapper .title,
+.title-wrapper-with-link .title {
+  margin-bottom: 0 !important;
+}
+
+/* fix hide empty column item in mobile */
+.multicolumn-list__item--empty {
+  display: list-item !important;
+}
+
+/* fix padding for for template-collection */
+@media screen and (min-width: 990px) {
+  .collection--full-width slider-component ul li:first-child {
+    margin-left: 0 !important;
+  }
+}
+
+/* fix greek pik */
+@media screen and (max-width: 749px) {
+  .grid--peek.slider .grid__item:first-of-type {
+    margin-left: 0;
+  }
+}
+
+/* button small */
+.button--small {
+  padding: 0 1rem;
+  line-height: 1;
+  min-height: 36px;
+}
+
+/* fix component-slider.css
+.slider--desktop {
+     margin-bottom: 1rem; => 0
+*/
+
+/* comment section-multicolumn.css */
+/* @media screen and (max-width: 989px) {
+  .multicolumn .page-width {
+    padding-left: 0;
+    padding-right: 0;
+  }
+} */
+
+/* section-main-product.css
+fix inventory
+personalization option
+*/
