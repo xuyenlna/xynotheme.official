@@ -126,6 +126,24 @@
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}
+
+    {%- if section.settings.show_view_all -%}
+      <div
+        class="center product-list-view-all{% if show_mobile_slider or show_desktop_slider %} small-hide medium-hide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        {% if settings.animations_reveal_on_scroll %}
+          data-cascade
+        {% endif %}
+      >
+        <a
+          href="/collections/all"
+          class="button {% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+          id="ViewAllButton-{{ section.id }}"
+          aria-labelledby="ViewAllButton-{{ section.id }} SectionHeading-{{ section.id }}"
+        >
+          {{- 'sections.collection_list.view_all' | t -}}
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -138,6 +156,19 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show View All Button",
+      "info": "The 'View All' button will be hidden if 'Swipe on desktop' or 'Swipe on mobile' is turned on."
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "default": false,
+      "label": "t:sections.image-with-text.blocks.button.settings.outline_button.label"
+    },
     {
       "type": "checkbox",
       "id": "swipe_on_desktop",
