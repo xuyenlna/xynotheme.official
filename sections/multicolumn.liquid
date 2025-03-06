@@ -14,8 +14,9 @@
     }
   }
 
-  .multicolumn .multicolumn-card {
-    background: rgb(var(--color-background)) !important
+  .section-{{ section.id }}.multicolumn .multicolumn-card {
+    background: rgb(var(--color-background)) !important;
+    border: solid 1px rgb(var(--color-button))
   }
 {%- endstyle -%}
 
@@ -27,7 +28,7 @@
   endif
 -%}
 
-<div class="multicolumn color-{{ section.settings.color_scheme }} gradient{% unless section.settings.background_style == 'none' and settings.text_boxes_border_thickness > 0 or settings.text_boxes_shadow_opacity > 0 %} background-{{ section.settings.background_style }}{% endunless %}{% if section.settings.title == blank %} no-heading{% endif %}">
+<div class="multicolumn section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% unless section.settings.background_style == 'none' and settings.text_boxes_border_thickness > 0 or settings.text_boxes_shadow_opacity > 0 %} background-{{ section.settings.background_style }}{% endunless %}{% if section.settings.title == blank %} no-heading{% endif %}">
   <div
     class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     {% if settings.animations_reveal_on_scroll %}
@@ -86,7 +87,9 @@
               style="--animation-order: {{ forloop.index }};"
             {% endif %}
           >
-            <div class="multicolumn-card content-container color-{{ section.settings.card_color_scheme }} gradient">
+            <div
+              class="multicolumn-card content-container color-{{ section.settings.card_color_scheme }} gradient"
+            >
               {%- if block.settings.image != blank -%}
                 {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
                   {% assign spaced_image = true %}

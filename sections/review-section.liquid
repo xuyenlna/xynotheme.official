@@ -13,6 +13,9 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .multicolumn .multicolumn-card {
+    background: rgb(var(--color-background)) !important
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -81,7 +84,7 @@
               style="--animation-order: {{ forloop.index }};"
             {% endif %}
           >
-            <div class="multicolumn-card content-container">
+            <div class="multicolumn-card content-container color-{{ section.settings.card_color_scheme }} gradient">
               {%- if block.settings.image != blank -%}
                 {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
                   {% assign spaced_image = true %}
@@ -409,6 +412,12 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "card_color_scheme",
+      "label": "Card Color Scheme",
+      "default": "scheme-2"
     },
     {
       "type": "header",
