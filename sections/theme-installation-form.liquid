@@ -57,18 +57,18 @@
             class="field__input"
             autocomplete="name"
             type="text"
-            id="ContactForm-name"
+            id="ThemeInstallationForm-name"
             name="contact[{{ 'templates.contact.form.name' | t }}]"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder="{{ 'templates.contact.form.name' | t }}"
+            placeholder="Your Name"
           >
-          <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+          <label class="field__label" for="ThemeInstallationForm-name">Your Name</label>
         </div>
         <div class="field field--with-error">
           <input
             autocomplete="email"
             type="email"
-            id="ContactForm-email"
+            id="ThemeInstallationForm-email"
             class="field__input"
             name="contact[email]"
             spellcheck="false"
@@ -81,12 +81,12 @@
             {% endif %}
             placeholder="{{ 'templates.contact.form.email' | t }}"
           >
-          <label class="field__label" for="ContactForm-email">
+          <label class="field__label" for="ThemeInstallationForm-email">
             {{- 'templates.contact.form.email' | t }}
             <span aria-hidden="true">*</span></label
           >
           {%- if form.errors contains 'email' -%}
-            <small class="contact__field-error" id="ContactForm-email-error">
+            <small class="contact__field-error" id="ThemeInstallationForm-email-error">
               <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
               <span class="form__message">
                 <span class="svg-wrapper">
@@ -101,17 +101,64 @@
       </div>
       <div class="field">
         <input
-          type="tel"
-          id="ContactForm-phone"
           class="field__input"
-          autocomplete="tel"
-          name="contact[{{ 'templates.contact.form.phone' | t }}]"
-          pattern="[0-9\-]*"
-          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          placeholder="{{ 'templates.contact.form.phone' | t }}"
+          autocomplete="order-number"
+          type="text"
+          id="ThemeInstallationForm-order-number"
+          name="contact[order-number]"
+          aria-required="true"
+          placeholder="Order Number"
         >
-        <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+        <label class="field__label" for="ThemeInstallationForm-order-number">
+          Order Number <span aria-hidden="true">*</span>
+        </label>
       </div>
+
+      <div class="field">
+        <input
+          class="field__input"
+          autocomplete="theme-name"
+          type="text"
+          id="ThemeInstallationForm-theme-name"
+          name="contact[theme-name]"
+          aria-required="true"
+          placeholder="Theme Name"
+        >
+        <label class="field__label" for="ThemeInstallationForm-theme-name">
+          Theme Name <span aria-hidden="true">*</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <input
+          class="field__input"
+          autocomplete="domain-name"
+          type="text"
+          id="ThemeInstallationForm-domain-name"
+          name="contact[domain-name]"
+          required
+          placeholder="Shopify Store Domain Name"
+        >
+        <label class="field__label" for="ThemeInstallationForm-domain-name">
+          Shopify Store Domain Name <span aria-hidden="true">*</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <input
+          class="field__input"
+          autocomplete="collaborator-code"
+          type="text"
+          id="ThemeInstallationForm-collaborator-code"
+          name="contact[collaborator-code]"
+          aria-required="true"
+          placeholder="Collaborator Code"
+        >
+        <label class="field__label" for="ThemeInstallationForm-collaborator-code">
+          Collaborator Code <span aria-hidden="true">*</span>
+        </label>
+      </div>
+
       <div class="field">
         <textarea
           rows="10"
@@ -123,7 +170,7 @@
           {{- form.body -}}
         </textarea>
         <label class="form__label field__label" for="ContactForm-body">
-          {{- 'templates.contact.form.comment' | t -}}
+          Any additional requests or special instructions? Let us know here!
         </label>
       </div>
       <div class="contact__button">
@@ -137,7 +184,7 @@
 
 {% schema %}
 {
-  "name": "t:sections.contact-form.name",
+  "name": "Theme installation form",
   "tag": "section",
   "class": "section",
   "disabled_on": {
@@ -147,7 +194,7 @@
     {
       "type": "inline_richtext",
       "id": "heading",
-      "default": "t:sections.contact-form.settings.title.default",
+      "default": "Theme Installation Form",
       "label": "t:sections.contact-form.settings.title.label"
     },
     {
@@ -211,7 +258,7 @@
   ],
   "presets": [
     {
-      "name": "t:sections.contact-form.presets.name"
+      "name": "Theme installation form"
     }
   ]
 }
