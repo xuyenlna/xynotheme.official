@@ -31,7 +31,7 @@
   }
 {% endstyle %}
 
-{% capture 'marquee-content' %}
+{% capture marquee-content %}
   <div class="marquee-item-wraper  ">
     {%- for block in section.blocks -%}
       {%- case block.type -%}
@@ -513,3 +513,13 @@
   }
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% capture 'marquee-content' %}"
+  to: "{% capture marquee-content %}"
+  position: 920..949
+{% endcomment %}
